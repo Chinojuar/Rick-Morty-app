@@ -1,0 +1,22 @@
+{
+  "name": "prueba-tecnica",
+  "version": "1.0.0",
+  "workspaces": [
+    "mf-shell",
+    "mf-characters",
+    "mf-character-detail"
+  ],
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run start --workspace=mf-shell\" \"npm run start --workspace=mf-characters\" \"npm run start --workspace=mf-character-detail\"",
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^10.0.5"
+  }
+}

@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  # Microfrontend 1: Listado y filtros de personajes
+  mf-characters:
+    build:
+      context: ./mf-characters
+      dockerfile: Dockerfile
+    container_name: mf-characters
+    ports:
+      - "3001:80"
+    networks:
+      - mfe-network
+    restart: unless-stopped
+
+  # Microfrontend 2: Detalle de personaje y episodios
+  mf-character-detail:
+    build:
+      context: ./mf-character-detail
+      dockerfile: Dockerfile
+    container_name: mf-character-detail
+    ports:
+      - "3002:80"
+    networks:
+      - mfe-network
+    restart: unless-stopped
+
+  # Microfrontend Host: Shell y orquestación
+  mf-shell:
+    build:
+      context: ./mf-shell
+      dockerfile: Dockerfile
+    container_name: mf-shell
+    ports:
+      - "3000:80"
+    depends_on:
+      - mf-characters
+      - mf-character-detail
+    networks:
+      - mfe-network
+    restart: unless-stopped
+
+networks:
+  mfe-network:
+    driver: bridge
